@@ -77,6 +77,24 @@ There is deliberately no link between the two networks.
 3. Assigned static addressing to the PBX and all endpoints.
 4. Created a Paging/Intercom group, `Meeting_room_announcement`, for meeting-room announcements.
 
+## Challenges and troubleshooting
+
+| Challenge | What happened | What I did |
+| --- | --- | --- |
+| **Choosing the platform** | Limited budget, several brands to compare | Compared brands on features, price and management interface; chose Grandstream |
+| **No cabling to desks** | Existing office had no suitable LAN points at the phone locations; new structured cabling would raise cost and complexity | Selected the GRP2612W specifically for its Wi-Fi capability |
+| **SIP registration failures** | Phones were first set up on DHCP; when an address changed, phones lost connectivity or failed to register | Moved every phone to a static IP. The issue did not return |
+| **Intermittent disconnections** | A phone would occasionally drop off the UCM6302 | First step: restart the phone and rejoin Wi-Fi. If that failed: check the phone's IP details and its extension settings on the UCM |
+| **Unexpected call forwarding** | Some phones occasionally entered a call-forwarding state | Restarted and reconnected the phone, then checked the UCM configuration. Root cause not yet confirmed |
+| **Wireless interference** | Risk of conflict between the voice router and the existing office Wi-Fi | Adjusted the voice router's wireless settings to keep it clear of the production network |
+
+### Lessons learned
+
+- Plan IP addressing before deployment; do not leave voice endpoints on DHCP without reservations.
+- Check Wi-Fi coverage and cabling before choosing hardware, because it decides the phone model.
+- Consider wireless interference whenever voice runs over Wi-Fi.
+- Keep configuration documented from day one, so troubleshooting is quick.
+
 ## Result
 
 - Nine locations can call each other directly.
