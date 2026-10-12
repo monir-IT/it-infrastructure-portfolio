@@ -7,7 +7,7 @@ Low-cost, isolated internal phone system for a 9-extension office, built on a wi
 | **Role** | Sole IT engineer: design, configuration, deployment, documentation |
 | **Environment** | Second-floor office of a three-storey building, multi-branch restaurant company in Riyadh |
 | **Equipment** | 1 × Grandstream UCM6302 IP PBX, 9 × Grandstream GRP2612W Wi-Fi IP phones, 1 × repurposed wireless router |
-| **Status** | Phase One complete and in daily use |
+| **Status** | In daily use; expanded in Phases Two and Three (see [Later updates](#later-updates)) |
 
 ## The problem
 
@@ -110,6 +110,22 @@ Being honest about what Phase One does not do:
 - **Single points of failure.** One router and one PBX. Next step: scheduled UCM configuration backups and a documented recovery procedure.
 - **Voice over Wi-Fi depends on signal quality.** Next step: survey signal strength per room, and consider wired PoE phones or QoS for any weak spots.
 - **Internal only.** A later phase could add a SIP trunk for external calls, on a properly segmented VLAN with firewall rules.
+
+## Later updates
+
+### Phase Two
+
+- Added a phone for the CEO through a new ceiling access point, avoiding a cable run to the desk.
+- Registered the door station and indoor video station as extensions, with a ring group so a visitor call rings several phones at once. See [Door access control](../02-access-control-door-entry/README.md).
+- Moved the PBX and voice router into a network cabinet, connected through a managed switch on VLAN 20.
+
+### Phase Three
+
+- Added three more extensions at the company's request: the central kitchen manager's desk (first floor), the delivery-door cashier and the restaurant kitchen (both ground floor).
+- The voice network became VLAN 20 on the new OPNsense firewall. It still has **no internet by design**; the firewall provides only DNS and time (NTP) to it. See [OPNsense firewall](../05-opnsense-firewall/README.md).
+- The handsets now connect through the managed Ruijie Wi-Fi network on an untagged SSID. Tagging that SSID caused an outage, documented in [Switching and VLANs](../04-switching-and-vlans/README.md#troubleshooting).
+- **PBX clean-up from the firewall log.** The firewall log showed the PBX repeatedly trying to reach the internet. Two settings were the cause: a STUN lookup for its external address and a public "external host" entry. Neither can work on a network with no internet, so I disabled both and pointed the PBX's time source at the firewall.
+- Learned that UCM changes need both **Save** and **Apply Changes**, and that applying can restart the calling service, so changes are scheduled outside working hours.
 
 ## Skills demonstrated
 
