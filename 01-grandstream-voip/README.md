@@ -81,12 +81,12 @@ There is deliberately no link between the two networks.
 
 | Challenge | What happened | What I did |
 | --- | --- | --- |
-| **Choosing the platform** | Limited budget, several brands to compare | Compared brands on features, price and management interface; chose Grandstream |
+| **Choosing the platform** | Limited budget, several brands to compare | Compared brands on features, price, interface quality and support; chose Grandstream. Finding an official distributor took more research than choosing the hardware |
 | **No cabling to desks** | Existing office had no suitable LAN points at the phone locations; new structured cabling would raise cost and complexity | Selected the GRP2612W specifically for its Wi-Fi capability |
 | **SIP registration failures** | Phones were first set up on DHCP; when an address changed, phones lost connectivity or failed to register | Moved every phone to a static IP. The issue did not return |
 | **Intermittent disconnections** | A phone would occasionally drop off the UCM6302 | First step: restart the phone and rejoin Wi-Fi. If that failed: check the phone's IP details and its extension settings on the UCM |
 | **Unexpected call forwarding** | Some phones occasionally entered a call-forwarding state | Restarted and reconnected the phone, then checked the UCM configuration. Root cause not yet confirmed |
-| **Wireless interference** | Risk of conflict between the voice router and the existing office Wi-Fi | Adjusted the voice router's wireless settings to keep it clear of the production network |
+| **Wireless interference** | Risk of conflict between the voice router and the existing office Wi-Fi | Moved the voice router to a different frequency from the other routers |
 
 ### Lessons learned
 

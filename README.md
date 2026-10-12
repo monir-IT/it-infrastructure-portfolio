@@ -6,6 +6,8 @@ This repository documents the systems I have designed, built and fixed there: wh
 
 **Currently:** studying for AWS Solutions Architect – Associate and building Linux skills, working toward cloud security engineering.
 
+**Start here:** [How I built it: eight routers to one firewall](STORY.md), the story behind these projects and what I'd tell anyone doing this job alone.
+
 ## Projects
 
 | # | Project | Highlights |
