@@ -106,7 +106,7 @@ There is deliberately no link between the two networks.
 
 Being honest about what Phase One does not do:
 
-- **Hidden SSID is not a security control.** It only reduces casual visibility; the real protection is the Wi-Fi encryption and passphrase. Next step: confirm WPA2/WPA3 with a strong key and restrict the router admin interface.
+- **Hidden SSID is not a security control.** It only reduces casual visibility; the real protection is the Wi-Fi encryption and passphrase. **Done later:** moved the voice network to WPA2/WPA3 with a strong key and restricted access to the router's admin interface.
 - **Single points of failure.** One router and one PBX. Next step: scheduled UCM configuration backups and a documented recovery procedure.
 - **Voice over Wi-Fi depends on signal quality.** Next step: survey signal strength per room, and consider wired PoE phones or QoS for any weak spots.
 - **Internal only.** A later phase could add a SIP trunk for external calls, on a properly segmented VLAN with firewall rules.
@@ -121,7 +121,7 @@ Being honest about what Phase One does not do:
 
 ### Phase Three
 
-- Added three more extensions at the company's request: the central kitchen manager's desk (first floor), the delivery-door cashier and the restaurant kitchen (both ground floor).
+- Added three more extensions at the company's request: the central kitchen manager's desk (first floor), the delivery-door cashier and the restaurant kitchen (both ground floor). The system now has **13 phones**.
 - The voice network became VLAN 20 on the new OPNsense firewall. It still has **no internet by design**; the firewall provides only DNS and time (NTP) to it. See [OPNsense firewall](../05-opnsense-firewall/README.md).
 - The handsets now connect through the managed Ruijie Wi-Fi network on an untagged SSID. Tagging that SSID caused an outage, documented in [Switching and VLANs](../04-switching-and-vlans/README.md#troubleshooting).
 - **PBX clean-up from the firewall log.** The firewall log showed the PBX repeatedly trying to reach the internet. Two settings were the cause: a STUN lookup for its external address and a public "external host" entry. Neither can work on a network with no internet, so I disabled both and pointed the PBX's time source at the firewall.

@@ -1,6 +1,8 @@
 # Moniruzzaman Himel: IT Infrastructure Portfolio
 
-IT Infrastructure & Network Engineer in Riyadh, Saudi Arabia. I am the only IT engineer for a multi-brand restaurant group, responsible for its head office and branch networks.
+Network & Security Engineer in Riyadh, Saudi Arabia. I lead IT for a multi-brand restaurant group, responsible for its head office and branch networks, security and systems.
+
+**Cisco Certified Specialist – Security Core** · Fortinet FortiGate 7.6 Operator · Fortinet NSE 3 · Google Cloud Cybersecurity
 
 This repository documents the systems I have designed, built and fixed there: what the problem was, what I built, what went wrong, and how I diagnosed it.
 
@@ -13,11 +15,12 @@ This repository documents the systems I have designed, built and fixed there: wh
 | # | Project | Highlights |
 | --- | --- | --- |
 | 01 | [Internal VoIP phone system](01-grandstream-voip/README.md) | Grandstream PBX, Wi-Fi handsets, isolated voice network, IP planning |
-| 02 | [Door access control and video entry](02-access-control-door-entry/README.md) | SIP door station, RFID, remote release, lock wiring, fail-safe design |
+| 02 | [Door access control and attendance](02-access-control-door-entry/README.md) | SIP door station, fingerprint and RFID access, attendance, lock timing fault, fail-safe design |
 | 03 | [CCTV surveillance](03-cctv-surveillance/README.md) | Two recorders, 40+ cameras, dual-NIC isolation that fixed staff network drops |
 | 04 | [Switching, VLANs and wireless](04-switching-and-vlans/README.md) | Eight VLANs, five managed switches from three vendors, SSID-to-VLAN mapping |
-| 05 | [OPNsense firewall](05-opnsense-firewall/README.md) | Eight routers replaced by one firewall, default-deny zones, NAT and CGNAT troubleshooting, Tailscale |
+| 05 | [OPNsense firewall](05-opnsense-firewall/README.md) | Eight routers replaced by one firewall (internet costs cut from 2,030 to 290 SAR a month), default-deny zones, NAT and CGNAT troubleshooting, Tailscale |
 | 06 | [Firewall migration to bare metal](06-firewall-migration-bare-metal/README.md) | VM to appliance, config restore, lockout recovery, rollback planning |
+| 07 | [Microsoft 365 and email security](07-microsoft-365-email-security/README.md) | Tenant security audit and hardening, PowerShell mailbox audit, lessons from a compromised tenant |
 
 ## How the network grew
 
@@ -25,14 +28,40 @@ This repository documents the systems I have designed, built and fixed there: wh
 | --- | --- | --- |
 | **One** | No internal calling | Nine Wi-Fi phones on an isolated voice network |
 | **Two** | Anyone could walk in; no cameras; one router per service | Door entry with RFID and remote release, CCTV, two cabinets and the first VLANs |
-| **Three** | Eight separate consumer routers; 40+ cameras on a staff internet router | One OPNsense firewall, eight VLANs, five managed switches, managed Wi-Fi and three more phones |
+| **Three** | Eight separate consumer routers; 40+ cameras on a staff internet router | One OPNsense firewall, eight VLANs, five managed switches, managed Wi-Fi, and 13 phones in total |
+
+## In progress
+
+I use my own production environment to learn: each item below is implemented at work, then documented here.
+
+- [ ] Per-person Wi-Fi logins with FreeRADIUS and WPA2-Enterprise (testing)
+- [x] Microsoft 365: emergency access accounts, admin role separation, app-consent control, mail-forwarding audit
+- [ ] Microsoft 365: MFA for every account, SPF/DKIM/DMARC, domain protection
+- [ ] Endpoint protection policies beyond the defaults
+- [ ] Automated off-site firewall backups
+- [ ] Network monitoring on a Linux server
+- [ ] The head-office design rebuilt in AWS: VLANs as subnets, firewall rules as security groups
 
 ## Skills
 
 - **Networking:** VLANs and 802.1Q trunking, subnetting, DHCP and DNS, NAT, managed Wi-Fi, PoE, structured cabling
-- **Security:** firewall policy design, network segmentation, least-privilege access between zones, captive portal, RADIUS, physical access control, CCTV
+- **Security:** Cisco Security Core, firewall policy design, network segmentation, least-privilege access between zones, captive portal, RADIUS, physical access control, CCTV
+- **Cloud and identity:** Microsoft 365, Entra ID, DNS and email authentication
 - **Systems:** OPNsense, Hyper-V, Windows, PowerShell, Grandstream UCM, Hikvision, Ruijie Cloud, Tailscale
 - **Practice:** root-cause analysis, change and rollback planning, technical documentation
+
+## Certifications
+
+| Certification | Issuer | Issued |
+| --- | --- | --- |
+| Cisco Certified Specialist – Security Core | Cisco | Jan 2026 |
+| FortiGate 7.6 Operator | Fortinet | Jan 2026 |
+| NSE 3 Certified in Cybersecurity | Fortinet | Jan 2026 |
+| Google Cloud Cybersecurity Certificate | Google | Oct 2026 |
+| Microsoft IT Support Specialist | Microsoft | Sep 2026 |
+| Google IT Support | Google | Oct 2026 |
+
+Credentials are verifiable on my [LinkedIn profile](https://www.linkedin.com/in/monir-himel/).
 
 ## Learning
 
@@ -41,7 +70,7 @@ This repository documents the systems I have designed, built and fixed there: wh
 
 ## Contact
 
-LinkedIn: www.linkedin.com/in/monir-himel
+LinkedIn: [linkedin.com/in/monir-himel](https://www.linkedin.com/in/monir-himel/)
 
 ---
 

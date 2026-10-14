@@ -56,7 +56,7 @@ The deciding specification was the network chip. The earlier Intel i225 generati
 
 ## Testing recovery
 
-- **Auto power-on after a power cut:** set in the BIOS, then actually tested: pulled the power cable, waited ten seconds, reconnected, hands off. It came back by itself.
+- **Auto power-on after a power cut:** set in the BIOS and tested, as on the old PC: pulled the power cable, waited ten seconds, reconnected, hands off. It came back by itself.
 - **Temperature:** about 50 °C at idle, normal for a passively cooled N150.
 - Tailscale and FreeRADIUS installed on the appliance, so remote access no longer depends on the workstation.
 

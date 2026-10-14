@@ -23,9 +23,21 @@ Before Phase Three, every part of the building had grown its own router:
 | E | First floor: the 40+ camera recorder **and** staff internet |
 | F | Ground-floor cashier, plus the kitchen POS printers |
 | G | Ground-floor operations desk, added only because the other routers' signal didn't reach, and also used by bakery staff |
-| H | Coffee counter POS devices; some printers on long LAN cables that staff tripped over |
+| H | Coffee counter POS devices; some printers on long LAN cables that staff tripped over (fixed with wireless bridges, see [Wireless](../04-switching-and-vlans/README.md#wireless)) |
 
 There was no central control or visibility, every network had its own shared password, cameras shared a router with users, and nothing could be restricted between groups.
+
+It was also expensive. Seven of the routers had their own 5G SIM subscription at 290 SAR a month including VAT (the phone-system router had no internet).
+
+## The result in numbers
+
+| | Before | After |
+| --- | --- | --- |
+| Internet routers | 8 | 1 (5G gateway only) |
+| SIM subscriptions | 7 × 290 SAR = **2,030 SAR/month** (about $541) | **290 SAR/month** (about $77) |
+| Yearly internet cost | 24,360 SAR | 3,480 SAR: **saving 20,880 SAR a year** |
+| Network segments | None | 7 routed VLANs, each with its own policy |
+| Places to manage | 8 router admin pages | 1 firewall, 1 Wi-Fi cloud console |
 
 ## The design
 
@@ -92,7 +104,7 @@ The 5G connection has no public IP (its WAN address is in the carrier's NAT rang
 
 - **Captive portal** on the Employee VLAN with single-use vouchers. No idle timeout, so quiet devices are not disconnected.
 - **Planned:** a Telegram bot that calls the OPNsense voucher API and returns a fresh code, locked to one Telegram user ID, so I don't need the web interface for every code.
-- **FreeRADIUS** is installed and enabled. The plan is WPA2-Enterprise with a personal login for each staff member, so when someone leaves I delete one account instead of changing a password everyone knows. It will run as a second SSID alongside the current one so devices can move over gradually. Devices that can't do Enterprise (some POS handhelds) get their own SSID with a strong key and a MAC allow-list.
+- **FreeRADIUS** is installed and in testing on my own devices, with rollout to staff next. The plan is WPA2-Enterprise with a personal login for each staff member, so when someone leaves I delete one account instead of changing a password everyone knows. It will run as a second SSID alongside the current one so devices can move over gradually. Devices that can't do Enterprise (some POS handhelds) get their own SSID with a strong key and a MAC allow-list.
 
 ## Case study: remote camera viewing
 

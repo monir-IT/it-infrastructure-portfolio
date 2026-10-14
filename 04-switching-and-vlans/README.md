@@ -103,6 +103,8 @@ Five SSIDs across a self-organising Reyee group managed in Ruijie Cloud. Each SS
 | Business / POS | 50, tagged | All access points |
 | Executive | 150, tagged | CEO room access point only, through a cloud AP group |
 
+- **Wireless bridges for the POS printers.** Three POS printers at the coffee counter had been connected with long cables across the floor, and staff tripped over them. I placed a TP-Link TL-WA850RE extender beside each printer, joined it to the Business SSID with its own SSID broadcast turned off, and connected the printer to the extender's LAN port with a short Cat6 cable. The printers stay wired and land on VLAN 50 with no cable across the floor.
+- **Why every POS device is on the Business VLAN.** All POS terminals, delivery-app tablets and kitchen printers sit on VLAN 50. Finding a faulty device, writing firewall rules and changing policy all happen in one place, separate from staff phones.
 - **Speed upgrade.** The RAP2200(F) has a 100 Mbps uplink, which caps it at about 70 Mbps. I replaced the CEO-area unit with a RAP2260(G), which measures around 400 Mbps.
 - **Cloud overrides local.** The local web console on the master AP can't limit an SSID to specific access points, but Ruijie Cloud can through AP groups. Once the network is adopted into the cloud, changes made locally silently revert, so all changes go through the cloud.
 

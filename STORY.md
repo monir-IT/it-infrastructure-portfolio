@@ -20,7 +20,7 @@ The first project was deliberately small. People were walking between department
 
 I chose Grandstream after comparing brands on interface quality and support, and picked the GRP2612W because it is Wi-Fi. The office had no structured cabling and no realistic path to run any, so a wired handset would have meant a cabling project before the phone project. Finding an official distributor took more research than choosing the hardware.
 
-Nine phones, one phone system, and a spare router repurposed as a voice network with no internet. It cost very little and it worked.
+Nine phones (13 today), one phone system, and a spare router repurposed as a voice network with no internet. It cost very little and it worked.
 
 The lesson came in commissioning. On DHCP, the phones kept changing address, and every time one did, its SIP registration broke. Moving every phone to a static address ended it. That was the first time I understood that for an infrastructure device, a predictable address is not a nicety; it is part of whether the service works.
 
@@ -44,7 +44,7 @@ This was the one that changed everything, and the one that could have gone badly
 
 The plan was to put OPNsense between the office and the internet, with proper VLANs behind it. The budget was a workstation I already had, so OPNsense went on Hyper-V with an Intel four-port network card. That was a compromise I would later undo, but it was the difference between doing the project and not doing it.
 
-I didn't rush it. On a Friday with the office closed, I built the machine: Hyper-V enabled, Windows auto-update disabled, BIOS set to power on after a power cut. Then I left it running for a week to see whether it stayed up before trusting it with anything. The following Friday I connected it to the core switch and built the VLANs: management, office, voice, cameras, employee, business, and later the CEO room.
+I didn't rush it. On a Friday with the office closed, I built the machine: Hyper-V enabled, Windows auto-update disabled, BIOS set to power on after a power cut, and that tested. Then I left it running for a week to see whether it stayed up before trusting it with anything. The following Friday I connected it to the core switch and built the VLANs: management, office, voice, cameras, employee, business, and later the CEO room.
 
 ### What I learned building it
 
@@ -92,7 +92,7 @@ I chose a fanless appliance with Intel i226-V ports. The network chip was the de
 
 It didn't go smoothly. The appliance wouldn't start at all until I unplugged it for a minute. Then the configuration restore brought everything across, including the two-factor authentication server, and the new box's clock hadn't synchronised. I was locked out of a firewall sitting on my own desk. The clean way out was to switch the production firewall to local authentication, take a fresh backup and restore that. I could have edited the configuration file by hand under pressure. I'm glad I didn't.
 
-Then I set the BIOS to power on after a power cut and actually tested it: pulled the cable, waited, plugged it back in, hands off. It came up by itself. It takes a minute, and it is the difference between knowing the office comes back at 3 a.m. and hoping it does.
+Then I set the BIOS to power on after a power cut and tested it again on the new box: pulled the cable, waited, plugged it back in, hands off. It came up by itself. It takes a minute, and it is the difference between knowing the office comes back at 3 a.m. and hoping it does.
 
 → [Firewall migration](06-firewall-migration-bare-metal/README.md)
 

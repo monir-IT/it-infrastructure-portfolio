@@ -1,6 +1,6 @@
-# Door Access Control and Video Entry System
+# Door Access Control, Video Entry and Attendance
 
-Video door-entry system with remote release, RFID cards and PIN entry, integrated with the office phone system.
+Two controlled doors: a video door-entry system at the building entrance, integrated with the office phone system, and a fingerprint and card terminal at the office entrance that also records staff attendance.
 
 | | |
 | --- | --- |
@@ -61,12 +61,34 @@ People leaving use the exit button inside the door.
 5. Individual RFID card enrolment for each employee.
 6. Lock, exit button and 12 V supply wired to the GDS3710 relay.
 
+## Second door: office entrance with fingerprint and attendance
+
+Later I secured the second-floor office entrance as well, with a **ZKTeco MB2000** terminal that does both door access and staff attendance, on a tight budget.
+
+| Item | Setup |
+| --- | --- |
+| Entry | Fingerprint or RFID card on the ZKTeco terminal |
+| Lock | Magnetic lock with an automatic door closer |
+| Exit | Magnetic release switch inside the door |
+| Cards | Each employee's existing RFID card enrolled with the **same card ID**, so one card opens both the building entrance and the office |
+| Attendance | Terminal time and date configured, so clock-in records are accurate |
+
+```mermaid
+flowchart LR
+    S["Staff member"] -->|"fingerprint or RFID card"| Z["ZKTeco MB2000<br/>access + attendance"]
+    Z -->|"relay: release for 2 s"| L["Magnetic lock"]
+    D["Door closer"] -->|"shuts door while<br/>magnet re-energises"| L
+    E["Inside release switch"] --> L
+    Z --> A["Attendance record"]
+```
+
 ## Challenges and troubleshooting
 
 | Challenge | What happened | What I did |
 | --- | --- | --- |
 | **Lock wiring and power** | The hardest part of the project. The GDS relay, magnetic lock, exit button and 12 V supply all had to work as one circuit, and the lock needed a continuously available power source | Several rounds of testing and rewiring; used a constant supply with a 12 V adapter and good-quality copper cable for the low-voltage run |
 | **Cable route redone** | The first cable run to the door was surface-mounted. Management then asked for it to be hidden in the wall | Re-ran the cable inside the wall |
+| **Office door showed "locked" but wasn't** | After a fingerprint entry, the closer shut the door and the lock showed its magnet active, but the door could be pushed open | With a 4-second release time, the magnet re-energised only after the door had come to rest, leaving a small gap between the magnet and the armature plate that it could not pull closed. I cut the release time to 2 seconds, so the magnet is already active while the door is still swinging and the closing momentum seats the plate. Tested repeatedly with the closer alone |
 | **PIN "not working"** | PIN entry failed during first tests | The device was fine; the entry sequence was incomplete. The GDS3710 expects `*`, then the PIN, then `#` |
 
 Installation notes: the supplied weather-sealing parts were fitted on the door station, PoE removed the need for a separate power feed to it, and Grandstream's GS Search tool was useful for finding devices on the network.
@@ -91,4 +113,4 @@ Not yet documented: fire-alarm interface and a formal check against local fire a
 
 ## Skills demonstrated
 
-`Access control` · `SIP / Grandstream UCM` · `Video intercom` · `RFID` · `PoE` · `Low-voltage wiring` · `Troubleshooting`
+`Access control` · `Biometric access (ZKTeco)` · `Time and attendance` · `SIP / Grandstream UCM` · `Video intercom` · `RFID` · `PoE` · `Low-voltage wiring` · `Troubleshooting`

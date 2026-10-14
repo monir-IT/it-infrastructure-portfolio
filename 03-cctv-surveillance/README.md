@@ -58,7 +58,7 @@ flowchart TB
     SWC ===|"trunk including VLAN 31"| SWE["Switch E<br/>Ruijie managed"]
 
     subgraph CAMNET["Isolated camera network: no router, no gateway, no internet"]
-        N2["Recorder B<br/>port 2"]
+        N2["Recorder B port 2<br/>gives the cameras their IPs"]
         USWA["U-SW A"]
         USWB["U-SW B"]
         USWC["U-SW C"]
@@ -73,7 +73,7 @@ flowchart TB
     SWE ---|"VLAN 31"| USWC
 ```
 
-- **Port 2** sits on a camera-only network. This is where the cameras live and how the recorder records them. No router is involved, so recording no longer depends on any router or on the firewall.
+- **Port 2** sits on a camera-only network. Recorder B hands out the cameras' IP addresses itself and records them over this port. No router is involved, so recording no longer depends on any router or on the firewall.
 - **Port 1** sits on VLAN 30 (CCTV). It is used only for managing the recorder and for remote viewing through Hik-Connect.
 - **VLAN 31** is a "transport" VLAN. It carries the camera network between floors over the managed switches so that cameras on U-SW C join the same network as the others. It has no IP addresses, no gateway and no interface on the firewall, deliberately: nothing on it needs to be routed.
 - The recorder does not route between its two ports, so the cameras have no path to the staff network or the internet.
@@ -92,7 +92,7 @@ VLAN 30 gets **internet only**, which Hik-Connect needs for remote viewing:
 
 | Challenge | What happened | What I did |
 | --- | --- | --- |
-| **Staff network drops** | 40+ cameras were DHCP clients of a staff internet router | Moved the cameras to an isolated network on the recorder's second port (above) |
+| **Staff network drops** | 40+ cameras were DHCP clients of a staff internet router | Moved the cameras to an isolated network on the recorder's second port, with the recorder as their DHCP server (above) |
 | **Remote viewing broken in a strange pattern** | From mobile data, the branch recorders worked and the head-office ones did not. From inside head office, the reverse | Root cause was the firewall randomising source ports on outbound NAT. Full case study in [OPNsense firewall](../05-opnsense-firewall/README.md#case-study-remote-camera-viewing) |
 | **Streams stopped after about 20 seconds** | The firewall's default timeouts closed idle UDP sessions faster than Hik-Connect's keepalives | Set firewall optimisation to Conservative |
 | **Recorders could not resolve anything** | Their DNS was set to a public resolver, but VLAN 30 only allows DNS to the firewall | Pointed the recorders' DNS at the firewall |
