@@ -41,7 +41,7 @@ This repository documents the systems I have designed, built and fixed there: wh
 
 ## Contact
 
-LinkedIn: *add your profile link here*
+LinkedIn: www.linkedin.com/in/monir-himel
 
 ---
 
