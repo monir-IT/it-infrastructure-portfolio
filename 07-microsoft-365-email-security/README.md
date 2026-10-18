@@ -78,6 +78,7 @@ Attackers commonly leave forwarding rules behind to keep reading mail after they
 | Admin role separation | Separate admin account used only in a dedicated browser profile; global admin removed from the daily email account | Done |
 | User consent to apps | Set to "Do not allow user consent", blocking consent-phishing attacks | Done |
 | Admin consent workflow | Users can request an app; IT reviews and approves | Done |
+| Unused accounts | 4 unused brand mailboxes converted to shared mailboxes (no password, access through named users' own accounts); 4 licences freed, about $725 a year | Done |
 | MFA for every account | Security Defaults; follow-up on accounts not yet registered, including a plan for a shared workstation account | In progress |
 | SPF, DKIM and DMARC | Stop others sending email as the company | Planned |
 | Domain protection | Auto-renew, registrar lock, MFA on the registrar account | Planned |

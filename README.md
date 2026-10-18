@@ -6,7 +6,7 @@ Network & Security Engineer in Riyadh, Saudi Arabia. I lead IT for a multi-brand
 
 This repository documents the systems I have designed, built and fixed there: what the problem was, what I built, what went wrong, and how I diagnosed it.
 
-**Currently:** studying for AWS Solutions Architect – Associate and building Linux skills, working toward cloud security engineering.
+**Currently:** extending my work into Azure: Entra ID identity security now, AZ-104 and SC-500 next, alongside Linux, toward cloud security engineering.
 
 **Start here:** [How I built it: eight routers to one firewall](STORY.md), the story behind these projects and what I'd tell anyone doing this job alone.
 
@@ -38,15 +38,16 @@ I use my own production environment to learn: each item below is implemented at 
 - [x] Microsoft 365: emergency access accounts, admin role separation, app-consent control, mail-forwarding audit
 - [ ] Microsoft 365: MFA for every account, SPF/DKIM/DMARC, domain protection
 - [ ] Endpoint protection policies beyond the defaults
-- [ ] Automated off-site firewall backups
 - [ ] Network monitoring on a Linux server
-- [ ] The head-office design rebuilt in AWS: VLANs as subnets, firewall rules as security groups
+- [ ] Firewall and device backups to Azure Blob Storage
+- [ ] Microsoft Sentinel monitoring for Microsoft 365 sign-ins and alerts
+- [ ] The head-office design rebuilt in Azure with Terraform: VLANs as subnets, firewall rules as network security groups
 
 ## Skills
 
 - **Networking:** VLANs and 802.1Q trunking, subnetting, DHCP and DNS, NAT, managed Wi-Fi, PoE, structured cabling
 - **Security:** Cisco Security Core, firewall policy design, network segmentation, least-privilege access between zones, captive portal, RADIUS, physical access control, CCTV
-- **Cloud and identity:** Microsoft 365, Entra ID, DNS and email authentication
+- **Cloud and identity:** Azure / Entra ID, Microsoft 365 security, DNS and email authentication
 - **Systems:** OPNsense, Hyper-V, Windows, PowerShell, Grandstream UCM, Hikvision, Ruijie Cloud, Tailscale
 - **Practice:** root-cause analysis, change and rollback planning, technical documentation
 
@@ -65,7 +66,7 @@ Credentials are verifiable on my [LinkedIn profile](https://www.linkedin.com/in/
 
 ## Learning
 
-- AWS Solutions Architect – Associate (in progress)
+- Microsoft Azure Administrator (AZ-104), then Cloud and AI Security Engineer (SC-500)
 - Linux fundamentals (in progress)
 
 ## Contact
