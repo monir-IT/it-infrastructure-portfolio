@@ -62,7 +62,7 @@ Everything below the firewall rides one chain of trunks. A missing VLAN tag on a
 | 20 | Voice | **No, by design** | Phone system, handsets, door entry |
 | 30 | CCTV | Internet only | Recorders, for remote viewing |
 | 31 | Camera transport | None | Layer 2 only: no addresses, no gateway |
-| 40 | Employee | Yes, through a captive portal | Staff personal phones |
+| 40 | Employee | Yes | Staff personal phones |
 | 50 | Business | Yes | POS devices and business equipment |
 | 150 | Executive | Yes | CEO room only |
 
@@ -117,6 +117,7 @@ Five SSIDs across a self-organising Reyee group managed in Ruijie Cloud. Each SS
 | Access points showing "DNS failed" and offline in the cloud | APs manage themselves on the voice VLAN, which has no internet, so their self-test failed. Wi-Fi itself still worked | Rejected the obvious fix (changing the AP ports' untagged VLAN), because that would have moved every handset off the phone system. Instead added two narrow firewall rules allowing only the APs' own addresses out |
 | Same fault came back later | The APs' DHCP addresses changed, so the firewall alias no longer matched them | Permanent fix: reserve the AP addresses |
 | After a power cut, two APs offline and nearby devices can't connect even with a static IP | Switch B's port view: one AP port up with PoE, one down but drawing PoE, one with no PoE | Powered off the faulty AP so nearby devices fell back to a working one. Ruijie Cloud then showed a new master elected and an "offline" AP that was only a stale record |
+| 802.1X greyed out in Ruijie Cloud, even after upgrading every access point to the latest firmware | Two older RAP2200(F) units in the group don't support 802.1X on any firmware, and the cloud disables it for the whole group | Parked per-person Wi-Fi until they are replaced; MAC allow-list and a rotated key on the Business SSID in the meantime |
 | Switch loses its configuration after a reboot | Changes not saved to the startup configuration | Save to startup after every change, then export a backup |
 
 ## Lessons learned

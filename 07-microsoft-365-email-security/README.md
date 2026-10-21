@@ -6,7 +6,7 @@ Set up the company's Microsoft 365 tenant and custom email domain, handled two r
 | --- | --- |
 | **Role** | Sole IT administrator: tenant setup, domain and DNS, user management, incident handling |
 | **Platform** | Microsoft 365 Business Standard, domain registered with GoDaddy |
-| **Status** | In service; audit complete, hardening in progress (see [Hardening applied](#hardening-applied)) |
+| **Status** | In service; audit and hardening complete, MFA registration being finished (see [Hardening applied](#hardening-applied)) |
 
 ## Setup
 
@@ -79,11 +79,21 @@ Attackers commonly leave forwarding rules behind to keep reading mail after they
 | User consent to apps | Set to "Do not allow user consent", blocking consent-phishing attacks | Done |
 | Admin consent workflow | Users can request an app; IT reviews and approves | Done |
 | Unused accounts | 4 unused brand mailboxes converted to shared mailboxes (no password, access through named users' own accounts); 4 licences freed, about $725 a year | Done |
-| MFA for every account | Security Defaults; follow-up on accounts not yet registered, including a plan for a shared workstation account | In progress |
-| SPF, DKIM and DMARC | Stop others sending email as the company | Planned |
-| Domain protection | Auto-renew, registrar lock, MFA on the registrar account | Planned |
-| Self-service password reset | Fewer helpdesk resets, with MFA-verified identity | Planned |
+| MFA for every account | Security Defaults, with a registration deadline; follow-up on accounts not yet registered, including a plan for a shared workstation account | In progress |
+| Authenticator hardening | Sign-in prompts show the app name and location, so a push-fatigue attack is easier to spot; SMS and voice codes turned off | Done |
+| SPF, DKIM and DMARC | SPF ending in a hard fail, DKIM signing on, DMARC at `p=reject` with aggregate reports. Mail pretending to be from the company is now rejected, not just flagged | Done |
+| Domain protection | Auto-renew, registrar lock and MFA on the registrar account, the direct fix for Incident 1 | Done |
+| Self-service password reset | On for all users, verified through Authenticator; security questions off | Done |
+| All-staff mailing list | Dynamic list of every staff member, accepting mail only from approved internal senders, so it can't be used to spam or phish the whole company | Done |
+
+## Lessons learned
+
+- Each control maps back to a real failure: domain lock and auto-renew to the mail outage; break-glass accounts, role separation and MFA to the compromised admin.
+- Move DMARC to `p=reject` only after SPF and DKIM pass for every legitimate sender. Otherwise you block your own mail.
+- Turning a feature on is not the same as everyone using it. MFA needs a deadline, a report of who hasn't registered, and follow-up.
+
+The tenant's devices are covered in [08: Endpoint security with Defender and Intune](../08-endpoint-security-defender-intune/README.md).
 
 ## Skills demonstrated
 
-`Microsoft 365 administration` · `Entra ID` · `DNS (MX, SPF, DKIM, DMARC)` · `Domain management` · `Incident response` · `Account recovery` · `Identity security` · `PowerShell (Exchange Online)` · `Least privilege`
+`Microsoft 365 administration` · `Entra ID` · `DNS (MX, SPF, DKIM, DMARC)` · `Email authentication` · `Domain management` · `Incident response` · `Account recovery` · `Identity security` · `PowerShell (Exchange Online)` · `Least privilege`

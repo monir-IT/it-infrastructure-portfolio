@@ -1,6 +1,6 @@
 # OPNsense Firewall and Network Consolidation
 
-Replaced eight separate consumer routers with one OPNsense firewall: seven routed VLANs, a default-deny policy for each zone, remote access through carrier-grade NAT, and a captive portal for staff Wi-Fi.
+Replaced eight separate consumer routers with one OPNsense firewall: seven routed VLANs, a default-deny policy for each zone, remote access through carrier-grade NAT, logging on every block rule, and automated off-box configuration backups.
 
 | | |
 | --- | --- |
@@ -67,7 +67,7 @@ Rules are checked top to bottom, the first match wins, and anything not explicit
 | 10 | Office | Internet. No internal networks, with one exception for printing (below) |
 | 20 | Voice | DNS and time from the firewall only. No internet. Narrow exception for the access points' own addresses |
 | 30 | CCTV | Internet only, for remote viewing. No internal networks |
-| 40 | Employee | Internet through a captive portal. No internal networks |
+| 40 | Employee | Internet. No internal networks |
 | 50 | Business / POS | Internet. No internal networks |
 | 150 | Executive | Internet. No internal networks |
 
@@ -100,11 +100,19 @@ The 5G connection has no public IP (its WAN address is in the carrier's NAT rang
 - Key expiry is disabled on the firewall node, otherwise it silently drops off after a few months.
 - Opening the firewall's web interface directly over Tailscale is far faster than remote-desktop into a PC to reach it.
 
-## Staff Wi-Fi: captive portal and RADIUS
+## Staff Wi-Fi and RADIUS: a plan that met the hardware
 
-- **Captive portal** on the Employee VLAN with single-use vouchers. No idle timeout, so quiet devices are not disconnected.
-- **Planned:** a Telegram bot that calls the OPNsense voucher API and returns a fresh code, locked to one Telegram user ID, so I don't need the web interface for every code.
-- **FreeRADIUS** is installed and in testing on my own devices, with rollout to staff next. The plan is WPA2-Enterprise with a personal login for each staff member, so when someone leaves I delete one account instead of changing a password everyone knows. It will run as a second SSID alongside the current one so devices can move over gradually. Devices that can't do Enterprise (some POS handhelds) get their own SSID with a strong key and a MAC allow-list.
+The goal was a personal Wi-Fi login for each staff member (WPA2-Enterprise / 802.1X), so that when someone leaves I disable one account instead of changing a password everyone knows.
+
+- **Tried first:** a captive portal with single-use vouchers on the Employee VLAN. Handing out codes did not scale for a restaurant workforce, so I dropped it before rollout.
+- **Built:** FreeRADIUS on the firewall, tested with my own devices (PEAP / MSCHAPv2).
+- **Blocked:** Ruijie Cloud kept the 802.1X option greyed out for the whole access-point group. I upgraded every access point to the latest firmware to rule out software, then confirmed the real cause: two older RAP2200(F) units in the group **do not support 802.1X on any firmware**, and the cloud disables the feature for the entire group if one member can't do it.
+- **Decision:** rather than wait, harden what exists. The Business SSID moves to a MAC allow-list for POS and delivery-app devices, with a new strong key rotated every six months and whenever relevant staff leave. FreeRADIUS stays configured, ready for when the two older units are replaced.
+
+## Logging and backups
+
+- **Every block rule logs.** After an outage whose root cause was never found, I enabled logging on every block rule so the next one shows exactly what was dropped and why. One deliberate exception: a non-logging block for recorder-to-camera traffic, which would otherwise flood the log.
+- **Off-box configuration backups, automated.** A PowerShell script on the admin PC pulls the firewall's `config.xml` over SSH every 6 hours into cloud-synced storage, skips copies that haven't changed, keeps the last 120, and writes a log. Task Scheduler is set to run a missed backup as soon as the PC is back on.
 
 ## Case study: remote camera viewing
 
@@ -159,12 +167,12 @@ Each of these came from a fault that cost real time.
 
 ## Next steps
 
-- Automated off-box configuration backups.
+- Automate backups for the phone system, switches and access points (the firewall is done).
 - UPS for the firewall.
 - Monitoring with Uptime Kuma: firewall, switches, access points, phone system and recorders.
-- Roll out FreeRADIUS and build the voucher bot.
+- Per-person Wi-Fi (802.1X) once the two older access points are replaced.
 - Connect the branches over Tailscale. The mechanism is proven; the blocker is that several branches use the same default subnets as head office, so each one needs renumbering as it joins.
 
 ## Skills demonstrated
 
-`OPNsense` · `Firewall policy design` · `Network segmentation` · `Outbound NAT` · `CGNAT` · `Tailscale` · `Captive portal` · `FreeRADIUS / 802.1X` · `DHCP / DNS` · `Root-cause analysis`
+`OPNsense` · `Firewall policy design` · `Network segmentation` · `Outbound NAT` · `CGNAT` · `Tailscale` · `FreeRADIUS / 802.1X` · `Firewall logging` · `PowerShell backup automation` · `DHCP / DNS` · `Root-cause analysis`

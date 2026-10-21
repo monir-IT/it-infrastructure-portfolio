@@ -8,7 +8,7 @@ Moved the company's production OPNsense firewall off a Windows workstation and o
 | **From** | OPNsense VM on Hyper-V, Windows 11 Pro workstation, Intel i350-T4 network card |
 | **To** | CWWK N150 fanless appliance, 4 × Intel i226-V ports, 8 GB RAM, 128 GB NVMe |
 | **Related** | [OPNsense firewall](../05-opnsense-firewall/README.md) |
-| **Status** | Appliance built, restored and tested; cutover to follow |
+| **Status** | Cut over October 2026 and in service; old VM removed |
 
 ## Stage one: OPNsense on Hyper-V
 
@@ -60,20 +60,22 @@ The deciding specification was the network chip. The earlier Intel i225 generati
 - **Temperature:** about 50 °C at idle, normal for a passively cooled N150.
 - Tailscale and FreeRADIUS installed on the appliance, so remote access no longer depends on the workstation.
 
-## Cutover plan
+## Cutover
 
 The swap is two cables (WAN and the switch trunk) moved from the old card to the appliance, then power on. Subnets, gateways and DHCP ranges are identical, so devices keep working; the DHCP lease table starts empty and relearns devices as they renew.
 
-**Rollback:** move the two cables back and start the VM. The old workstation stays untouched for at least a week.
+**Rollback:** move the two cables back and start the VM. The old workstation stayed untouched until the appliance had proved itself; then I removed the VM and its virtual switches, and the workstation went back to being an ordinary PC.
 
 **One thing changes at cutover:** the appliance's WAN port has a different MAC address, so the 5G router gives it a different address, which breaks the router's DMZ entry and all external camera viewing. Post-cutover checklist:
 
 1. Confirm the firewall's new WAN address.
-2. Update the 5G router's DMZ entry and reserve that address for the new MAC.
+2. Update the 5G router's DMZ entry to the new address.
 3. Check a handset re-registers to the phone system.
 4. Check one recorder in Hik-Connect from outside.
 5. Confirm a client on each SSID gets an address in the right VLAN.
 6. Remove the subnet routes from the old workstation's Tailscale so two nodes don't advertise the same networks.
+
+**Still open:** reserve the appliance's WAN address on the 5G router so it can't drift again (it has broken camera viewing twice), and switch two-factor login back on for the web interface.
 
 ## Lessons learned
 

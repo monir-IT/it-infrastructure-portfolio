@@ -100,7 +100,7 @@ Then I set the BIOS to power on after a power cut and tested it again on the new
 
 One firewall, seven routed VLANs, five managed switches, managed Wi-Fi, two camera recorders, a phone system and door entry, all under one policy and visible from one place.
 
-Voice has no internet and doesn't need it. Cameras reach their cloud and nothing internal. Office staff get internet and no internal networks except the printer. Only named admin devices can reach the management network. I can reach all of it from home through Tailscale, which runs on the firewall itself. A captive portal gates the employee network, and FreeRADIUS is ready for the move to per-person Wi-Fi logins.
+Voice has no internet and doesn't need it. Cameras reach their cloud and nothing internal. Office staff get internet and no internal networks except the printer. Only named admin devices can reach the management network. I can reach all of it from home through Tailscale, which runs on the firewall itself. FreeRADIUS is configured and ready for per-person Wi-Fi logins; the last step is replacing two older access points that can't do it.
 
 The eight routers are down to one, and that one does nothing but carry the 5G uplink to the firewall.
 

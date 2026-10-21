@@ -6,7 +6,7 @@ Network & Security Engineer in Riyadh, Saudi Arabia. I lead IT for a multi-brand
 
 This repository documents the systems I have designed, built and fixed there: what the problem was, what I built, what went wrong, and how I diagnosed it.
 
-**Currently:** extending my work into Azure: Entra ID identity security now, AZ-104 and SC-500 next, alongside Linux, toward cloud security engineering.
+**Currently:** extending my work into Azure: Entra ID identity and endpoint security (Intune, Defender) now, AZ-104 and SC-500 next, alongside Linux, toward cloud security engineering.
 
 **Start here:** [How I built it: eight routers to one firewall](STORY.md), the story behind these projects and what I'd tell anyone doing this job alone.
 
@@ -20,7 +20,8 @@ This repository documents the systems I have designed, built and fixed there: wh
 | 04 | [Switching, VLANs and wireless](04-switching-and-vlans/README.md) | Eight VLANs, five managed switches from three vendors, SSID-to-VLAN mapping |
 | 05 | [OPNsense firewall](05-opnsense-firewall/README.md) | Eight routers replaced by one firewall (internet costs cut from 2,030 to 290 SAR a month), default-deny zones, NAT and CGNAT troubleshooting, Tailscale |
 | 06 | [Firewall migration to bare metal](06-firewall-migration-bare-metal/README.md) | VM to appliance, config restore, lockout recovery, rollback planning |
-| 07 | [Microsoft 365 and email security](07-microsoft-365-email-security/README.md) | Tenant security audit and hardening, PowerShell mailbox audit, lessons from a compromised tenant |
+| 07 | [Microsoft 365 and email security](07-microsoft-365-email-security/README.md) | Tenant audit and hardening, break-glass accounts, SPF/DKIM/DMARC at reject, PowerShell mailbox audit, lessons from a compromised tenant |
+| 08 | [Endpoint security with Defender and Intune](08-endpoint-security-defender-intune/README.md) | Entra join and Intune enrolment, BitLocker with escrowed keys, Windows LAPS, hardened antivirus policy, tamper protection, EDR detection test |
 
 ## How the network grew
 
@@ -34,20 +35,24 @@ This repository documents the systems I have designed, built and fixed there: wh
 
 I use my own production environment to learn: each item below is implemented at work, then documented here.
 
-- [ ] Per-person Wi-Fi logins with FreeRADIUS and WPA2-Enterprise (testing)
 - [x] Microsoft 365: emergency access accounts, admin role separation, app-consent control, mail-forwarding audit
-- [ ] Microsoft 365: MFA for every account, SPF/DKIM/DMARC, domain protection
-- [ ] Endpoint protection policies beyond the defaults
+- [x] Microsoft 365: SPF, DKIM and DMARC at reject, domain lock, self-service password reset
+- [ ] Microsoft 365: MFA registered on every account (deadline set, follow-up in progress)
+- [x] Endpoint pilot: Defender for Business, Intune, BitLocker, Windows LAPS, antivirus policy
+- [ ] Endpoint: attack surface reduction rules (audit mode first), update rings, wider rollout
+- [x] Firewall configuration backups automated, off-box, every 6 hours
+- [ ] Per-person Wi-Fi logins with FreeRADIUS and WPA2-Enterprise (FreeRADIUS ready; waiting on two access points that can't do 802.1X)
 - [ ] Network monitoring on a Linux server
-- [ ] Firewall and device backups to Azure Blob Storage
+- [ ] Device backups to Azure Blob Storage
 - [ ] Microsoft Sentinel monitoring for Microsoft 365 sign-ins and alerts
 - [ ] The head-office design rebuilt in Azure with Terraform: VLANs as subnets, firewall rules as network security groups
 
 ## Skills
 
 - **Networking:** VLANs and 802.1Q trunking, subnetting, DHCP and DNS, NAT, managed Wi-Fi, PoE, structured cabling
-- **Security:** Cisco Security Core, firewall policy design, network segmentation, least-privilege access between zones, captive portal, RADIUS, physical access control, CCTV
-- **Cloud and identity:** Azure / Entra ID, Microsoft 365 security, DNS and email authentication
+- **Security:** Cisco Security Core, firewall policy design, network segmentation, least-privilege access between zones, RADIUS, physical access control, CCTV
+- **Cloud and identity:** Azure / Entra ID, Microsoft 365 security, DNS and email authentication (SPF, DKIM, DMARC)
+- **Endpoint:** Microsoft Intune, Defender for Business (Defender for Endpoint), BitLocker, Windows LAPS
 - **Systems:** OPNsense, Hyper-V, Windows, PowerShell, Grandstream UCM, Hikvision, Ruijie Cloud, Tailscale
 - **Practice:** root-cause analysis, change and rollback planning, technical documentation
 
